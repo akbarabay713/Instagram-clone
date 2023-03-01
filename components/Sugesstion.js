@@ -4,11 +4,11 @@ import Avatar from "@mui/material/Avatar";
 import ProfilePicture from "./ProfilePicture";
 import { useRouter } from "next/router";
 import { getUsername } from "./../helpers/helper";
-// import { useAuthState } from "react-firebase-hooks/auth";
+
 function Sugesstion({ onSignOut, profileImg, username }) {
   const [data, setData] = useState([]);
   const router = useRouter();
-  // const [user] = useAuthStatee(auth);
+
   useEffect(() => {
     const randomCard = [...Array(5)].map((_, i) => ({
       ...faker.helpers.contextualCard(),
@@ -16,7 +16,6 @@ function Sugesstion({ onSignOut, profileImg, username }) {
     }));
     setData(randomCard);
   }, []);
-  // console.log(username);
 
   const handleClick = () => router.push(`/profile/${getUsername(username)}`);
 
@@ -42,15 +41,14 @@ function Sugesstion({ onSignOut, profileImg, username }) {
           <p className="text-xs font-medium">See All</p>
         </div>
 
-        {/* <div className="flex items-center gap-3 "> */}
         {data.map((d, i) => {
           return (
             <div className="flex justify-between mt-3" key={i}>
               <ProfilePicture
                 username={d.username}
                 avatar={d.avatar}
-                width={9}
-                height={9}
+                width={10}
+                height={10}
                 flex={true}
               />
               <button className="border-0 text-blue-500 text-xs font-semibold">
@@ -59,7 +57,6 @@ function Sugesstion({ onSignOut, profileImg, username }) {
             </div>
           );
         })}
-        {/* </div> */}
       </div>
     </div>
   );

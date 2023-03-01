@@ -1,9 +1,5 @@
 import { SearchIcon, XCircleIcon, HomeIcon } from "@heroicons/react/solid";
-import {
-  PaperAirplaneIcon,
-  PlusCircleIcon,
-  HeartIcon,
-} from "@heroicons/react/outline";
+import { PlusCircleIcon } from "@heroicons/react/outline";
 import { useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import Modal from "./Modal";
@@ -13,6 +9,7 @@ import { Avatar } from "@mui/material";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 function Header({ addImage, postImage }) {
   const [focus, setFocus] = useState(false);
@@ -92,13 +89,6 @@ function Header({ addImage, postImage }) {
           className="h-7 w-7 cursor-pointer"
           onClick={handleToggle}
         />
-        {/* <img
-          src="http://cdn.onlinewebfonts.com/svg/img_119257.png"
-          alt="s"
-          className="h-6 w-6 cursor-pointer origin-center rotate-180"
-        /> */}
-
-        {/* <HeartIcon className="h-7 w-7 cursor-pointer" /> */}
         <Avatar alt="pic" src={user.photoURL} sx={{ width: 26, height: 26 }} />
       </div>
     </div>

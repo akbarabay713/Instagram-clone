@@ -1,3 +1,4 @@
+import Image from "next/image";
 function ProfilePicture({
   avatar,
   username,
@@ -13,13 +14,19 @@ function ProfilePicture({
         flex ? "flex items-center gap-3" : null
       }`}
     >
-      <img
-        src={avatar}
-        alt="avatar"
+      <div
         className={`w-${width} h-${height} rounded-full ${
           border ? "p-[2px] border-2 border-[#de4f94]" : null
-        }  object-cover`}
-      />
+        }  object-cover relative`}
+      >
+        <Image
+          src={avatar}
+          alt="avatar"
+          className={`rounded-full `}
+          width={80}
+          height={80}
+        />
+      </div>
       <p
         className={`${
           !flex ? "truncate" : null

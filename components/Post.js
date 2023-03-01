@@ -11,35 +11,17 @@ import TimeAgo from "timeago-react";
 import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
-import {
-  addDoc,
-  collection,
-  // limit,
-  orderBy,
-  query,
-  serverTimestamp,
-} from "firebase/firestore";
-// import Comment from "./Comment";
+import { collection, orderBy, query } from "firebase/firestore";
+
 import { useCollection } from "react-firebase-hooks/firestore";
 import Comments from "./Comments";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 function Post({ images, caption, username, timestamp, photoUrl, id }) {
   const [user] = useAuthState(auth);
   const [comment, setComment] = useState("");
   const router = useRouter();
-
-  // const handleComment = async (e) => {
-  //   e.preventDefault();
-  //   await addDoc(collection(db, "posts", id, "comments"), {
-  //     comment,
-  //     timestamp: serverTimestamp(),
-  //     email: user.email,
-  //     username: user.displayName,
-  //     photo: user.photoURL,
-  //   });
-  //   e.target.reset();
-  // };
 
   const handleComment = (e) => {
     e.preventDefault();
@@ -65,11 +47,7 @@ function Post({ images, caption, username, timestamp, photoUrl, id }) {
   };
 
   const [commentSnapshot] = useCollection(
-    query(
-      collection(db, "posts", id, "comments"),
-      orderBy("timestamp", "desc")
-      // limit(2)
-    )
+    query(collection(db, "posts", id, "comments"), orderBy("timestamp", "desc"))
   );
 
   const handleClick = (e) => {
@@ -82,7 +60,6 @@ function Post({ images, caption, username, timestamp, photoUrl, id }) {
       <div className="flex justify-between items-center p-3">
         <div className="flex items-center gap-3 ">
           <div className="border-2 border-[#de4f94] rounded-full p-[2px]">
-            {/* <Avatar className="cursor-pointer h-7 w-7">{username[0]}</Avatar> */}
             <Avatar src={photoUrl} />
           </div>
           <p className="font-semibold cursor-pointer" onClick={handleClick}>
@@ -92,7 +69,13 @@ function Post({ images, caption, username, timestamp, photoUrl, id }) {
         <DotsHorizontalIcon className="h-5 w-5 cursor-pointer " />
       </div>
       {/* imgg */}
-      <img src={images} alt="post" className="w-full h-auto" />
+      <Image
+        src={images}
+        alt="post"
+        className="w-full h-auto"
+        width="1000"
+        height="600"
+      />
       <div className="pl-3">
         {/* like */}
         <div className="flex items-center justify-between mt-4">
