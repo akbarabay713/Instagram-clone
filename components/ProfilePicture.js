@@ -23,8 +23,8 @@ function ProfilePicture({
           src={avatar}
           alt="avatar"
           className={`rounded-full `}
-          width={80}
-          height={80}
+          width={150}
+          height={150}
         />
       </div>
       <p

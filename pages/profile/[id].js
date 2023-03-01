@@ -34,11 +34,11 @@ function ProfilePage({ post, username }) {
         <div className=" lg:flex items-center justify-center lg:p-4 gap-24">
           <ProfilePicture
             avatar={picture.profileImg}
-            width="36"
-            height="36"
+            width="20"
+            height="20"
             flex={false}
             border={true}
-            width2={80}
+            width2={12}
           />
           <div className="basis-9/12">
             {/* first */}

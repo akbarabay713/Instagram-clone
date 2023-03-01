@@ -3,9 +3,18 @@ import Content from "../components/Content";
 import Header from "./../components/Header";
 import { signOut } from "firebase/auth";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { auth, db } from "../firebase";
+import { auth, db, storage } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { collection, orderBy, onSnapshot, query } from "firebase/firestore";
+import {
+  collection,
+  orderBy,
+  onSnapshot,
+  query,
+  addDoc,
+  serverTimestamp,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 import {
   captionState,
   loadingState,
@@ -13,8 +22,8 @@ import {
   selectedFileState,
 } from "./../atoms/stateAtom";
 import { getUsername } from "../helpers/helper";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
 
 export default function Home({ post }) {
   // const [allPost, setAllPost] = useState([JSON.parse(post)]);
@@ -36,7 +45,7 @@ export default function Home({ post }) {
     );
 
     return unsubscribe;
-  }, [db]);
+  }, []);
 
   const handleAddImage = (e) => {
     const reader = new FileReader();
@@ -48,61 +57,61 @@ export default function Home({ post }) {
     };
   };
 
-  const HandlePostImage = async (e) => {
-    if (loading) return;
-    e.preventDefault();
-    fetch("/api/uploadFeed", {
-      method: "POST",
-      body: JSON.stringify({
-        caption: caption,
-        username: getUsername(user.displayName),
-        profileImg: user.photoURL,
-        selectedFile: selectedFile,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .then(setSelectedFile(null))
-      .then(setCaption(null))
-      .then(setLoading(true))
-      .then(setOpen(false))
-      .catch((error) => {
-        // console.log(error)
-      });
-
-    setLoading(false);
-  };
-
   // const HandlePostImage = async (e) => {
   //   if (loading) return;
   //   e.preventDefault();
-  //   const docRef = await addDoc(collection(db, "posts"), {
-  //     caption: caption,
-  //     username: getUsername(user.displayName),
-  //     profileImg: user.photoURL,
-  //     timestamp: serverTimestamp(),
-  //   });
-  //   console.log("Document written with ID: ", docRef.id);
-
-  //   const imagesRef = ref(storage, `posts/${docRef.id}/images`);
-
-  //   uploadString(imagesRef, selectedFile, "data_url").then(async (snapshot) => {
-  //     console.log("Uploaded a data_url string!");
-  //     const downloadUrl = await getDownloadURL(imagesRef);
-  //     await updateDoc(doc(db, "posts", docRef.id), {
-  //       images: downloadUrl,
+  //   fetch("/api/uploadFeed", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       caption: caption,
+  //       username: getUsername(user.displayName),
+  //       profileImg: user.photoURL,
+  //       selectedFile: selectedFile,
+  //     }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data))
+  //     .then(setSelectedFile(null))
+  //     .then(setCaption(null))
+  //     .then(setLoading(true))
+  //     .then(setOpen(false))
+  //     .catch((error) => {
+  //       // console.log(error)
   //     });
-  //     setLoading(true);
-  //   });
 
-  //   setSelectedFile(null);
-  //   setCaption(null);
   //   setLoading(false);
-  //   setOpen(false);
   // };
+
+  const HandlePostImage = async (e) => {
+    if (loading) return;
+    e.preventDefault();
+    const docRef = await addDoc(collection(db, "posts"), {
+      caption: caption,
+      username: getUsername(user.displayName),
+      profileImg: user.photoURL,
+      timestamp: serverTimestamp(),
+    });
+    console.log("Document written with ID: ", docRef.id);
+
+    const imagesRef = ref(storage, `posts/${docRef.id}/images`);
+
+    uploadString(imagesRef, selectedFile, "data_url").then(async (snapshot) => {
+      console.log("Uploaded a data_url string!");
+      const downloadUrl = await getDownloadURL(imagesRef);
+      await updateDoc(doc(db, "posts", docRef.id), {
+        images: downloadUrl,
+      });
+      setLoading(true);
+    });
+
+    setSelectedFile(null);
+    setCaption(null);
+    setLoading(false);
+    setOpen(false);
+  };
 
   const handleSignOut = () => {
     signOut(auth)

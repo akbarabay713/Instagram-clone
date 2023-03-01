@@ -5,7 +5,8 @@ module.exports = {
       "firebasestorage.googleapis.com",
       "www.instagram.com",
       "assets.stickpng.com",
-      "cloudflare-ipfs.com"
+      "cloudflare-ipfs.com",
+      "lh3.googleusercontent.com",
     ],
   },
 };

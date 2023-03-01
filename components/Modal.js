@@ -20,12 +20,19 @@ function Modal({ onAddImage, onPostImage }) {
           onSubmit={onPostImage}
           className="flex flex-col justify-between h-full "
         >
+          {/* <img
+            src={selectedFile}
+            alt="some image"
+            onClick={() => setSelectedFile(null)}
+          /> */}
           <Image
             src={selectedFile}
             alt="some image"
             onClick={() => setSelectedFile(null)}
-            width="400"
-            height="700"
+            width="100%"
+            height="62.5%"
+            objectFit="contain"
+            layout="responsive"
           />
           <div className="mb-20 m-auto align-center">
             <input

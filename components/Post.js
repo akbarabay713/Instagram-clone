@@ -56,7 +56,7 @@ function Post({ images, caption, username, timestamp, photoUrl, id }) {
   };
 
   return (
-    <div className="border w-full md:col-span-3 md:w-[648px] lg:col-span-2 col-span-3 mt-5">
+    <div className="border w-full md:col-span-3 md:w-[648px] lg:col-span-2 col-span-3 mt-5 ">
       <div className="flex justify-between items-center p-3">
         <div className="flex items-center gap-3 ">
           <div className="border-2 border-[#de4f94] rounded-full p-[2px]">
@@ -69,13 +69,19 @@ function Post({ images, caption, username, timestamp, photoUrl, id }) {
         <DotsHorizontalIcon className="h-5 w-5 cursor-pointer " />
       </div>
       {/* imgg */}
+
+      {/* <img src={images} alt="post" className="w-full h-auto" /> */}
+
+      {/* <div className="w-72 h-72 relative flex items-center justify-center"> */}
       <Image
         src={images}
         alt="post"
-        className="w-full h-auto"
-        width="1000"
-        height="600"
+        width="100%"
+        height="62.5%"
+        objectFit="contain"
+        layout="responsive"
       />
+      {/* </div> */}
       <div className="pl-3">
         {/* like */}
         <div className="flex items-center justify-between mt-4">
