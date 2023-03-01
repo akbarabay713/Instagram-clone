@@ -11,7 +11,7 @@ import { db, auth } from "../../firebase";
 import Container from "./../../components/Container";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { getUsername } from "./../../helpers/helper";
-function profilePage({ post, username }) {
+function ProfilePage({ post, username }) {
   const allPost = JSON.parse(post);
   const length = allPost?.filter((w) => {
     return w.username === username;
@@ -88,7 +88,7 @@ function profilePage({ post, username }) {
   );
 }
 
-export default profilePage;
+export default ProfilePage;
 
 export async function getServerSideProps(context) {
   const { id } = context.params;

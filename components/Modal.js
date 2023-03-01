@@ -5,7 +5,7 @@ import {
   loadingState,
   selectedFileState,
 } from "./../atoms/stateAtom";
-
+import Image from "next/image";
 function Modal({ onAddImage, onPostImage }) {
   const [selectedFile, setSelectedFile] = useRecoilState(selectedFileState);
   const [caption, setCaption] = useRecoilState(captionState);
@@ -20,10 +20,12 @@ function Modal({ onAddImage, onPostImage }) {
           onSubmit={onPostImage}
           className="flex flex-col justify-between h-full "
         >
-          <img
+          <Image
             src={selectedFile}
             alt="some image"
             onClick={() => setSelectedFile(null)}
+            width="400"
+            height="700"
           />
           <div className="mb-20 m-auto align-center">
             <input

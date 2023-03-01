@@ -9,7 +9,6 @@ import { Avatar } from "@mui/material";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
 import { useRouter } from "next/router";
-import Image from "next/image";
 
 function Header({ addImage, postImage }) {
   const [focus, setFocus] = useState(false);
