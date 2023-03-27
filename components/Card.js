@@ -1,7 +1,7 @@
 import Image from "next/image";
 const Card = ({ images }) => {
   return (
-    <div className="w-72 h-72">
+    <div className="w-72 h-72 shadow mb-5">
       <Image
         src={images}
         alt="post"

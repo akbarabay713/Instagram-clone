@@ -68,11 +68,7 @@ function Post({ images, caption, username, timestamp, photoUrl, id }) {
         </div>
         <DotsHorizontalIcon className="h-5 w-5 cursor-pointer " />
       </div>
-      {/* imgg */}
 
-      {/* <img src={images} alt="post" className="w-full h-auto" /> */}
-
-      {/* <div className="w-72 h-72 relative flex items-center justify-center"> */}
       <Image
         src={images}
         alt="post"
@@ -81,7 +77,7 @@ function Post({ images, caption, username, timestamp, photoUrl, id }) {
         objectFit="contain"
         layout="responsive"
       />
-      {/* </div> */}
+
       <div className="pl-3">
         {/* like */}
         <div className="flex items-center justify-between mt-4">

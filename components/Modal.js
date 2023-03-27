@@ -20,11 +20,6 @@ function Modal({ onAddImage, onPostImage }) {
           onSubmit={onPostImage}
           className="flex flex-col justify-between h-full "
         >
-          {/* <img
-            src={selectedFile}
-            alt="some image"
-            onClick={() => setSelectedFile(null)}
-          /> */}
           <Image
             src={selectedFile}
             alt="some image"

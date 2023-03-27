@@ -13,6 +13,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { getUsername } from "./../../helpers/helper";
 function ProfilePage({ post, username }) {
   const allPost = JSON.parse(post);
+
   const length = allPost?.filter((w) => {
     return w.username === username;
   }).length;
